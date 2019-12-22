@@ -20,7 +20,7 @@ jobs:
         run:  docker login -u $DOCKER_USER -p DOCKER_PASSWD docker.pkg.github.com
       - name: Build Image
         env:
-          IMAGE: docker.pkg.github.com/Votebot/control-plane-service/control-plane-service
+          IMAGE: docker.pkg.github.com/votebot/control-plane-service/control-plane-service
         run: |
           docker build -t ${IMAGE} . -f Dockerfile
           docker tag ${IMAGE} ${IMAGE}:latest
