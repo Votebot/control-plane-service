@@ -18,5 +18,5 @@ jobs:
     - name: Publish artifacts
       run: chmod +x gradlew && ./gradlew lib:publish
       env:
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSWORD: ${{ secrets.PASSWORD }}
+        USERNAME: ${{ secrets.SPACE_USERNAME }}
+        PASSWORD: ${{ secrets.SPACE_PASSWORD }}

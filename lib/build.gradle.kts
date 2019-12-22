@@ -146,8 +146,7 @@ tasks {
 publishing {
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/VoteBot/control-plane-service")
+            url = uri("https://maven.jetbrains.space/votebot/maven")
             credentials {
                 username = System.getenv("USERNAME")
                 password = System.getenv("PASSWORD")
