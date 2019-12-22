@@ -115,8 +115,8 @@ publishing {
             from(components["java"])
             artifact(sourcesJar)
             pom {
-                name.set("votebot_control_plane_service")
-                description.set("control_plane")
+                groupId = "wtf.votebot.control_plane"
+                artifactId = "lib"
             }
         }
     }
