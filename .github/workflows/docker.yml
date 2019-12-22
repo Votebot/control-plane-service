@@ -1,0 +1,25 @@
+name: Docker Build & Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build Image
+        env:
+          IMAGE: votebot.registry.jetbrains.space/docker/control-plane-service
+          DOCKER_USER: ${{ secrets.SPACE_USERNAME }}
+          DOCKER_PASSWD: ${{ secrets.SPACE_PASSWORD }}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWD votebot.registry.jetbrains.space
+          docker build -t ${IMAGE} . -f Dockerfile
+          docker tag ${IMAGE} ${IMAGE}:latest
+          docker tag ${IMAGE} ${IMAGE}:${GITHUB_SHA::8}
+          docker push ${IMAGE}
