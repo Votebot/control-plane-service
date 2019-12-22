@@ -114,7 +114,11 @@ publishing {
         register<MavenPublication>("gpr") {
             from(components["java"])
             artifact(sourcesJar)
-            //artifact(dokkaJar)
+            pom {
+                name.set("votebot_control_plane_service")
+                description.set("control_plane")
+
+            }
         }
     }
 }
