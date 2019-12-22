@@ -1,7 +1,10 @@
+import com.google.protobuf.gradle.*
+
 plugins {
     java
     kotlin("jvm")
     id("maven-publish")
+    id("com.google.protobuf") version "0.8.10"
     //id("org.jetbrains.dokka") version "0.10.0"
 }
 
@@ -12,17 +15,59 @@ repositories {
     mavenCentral()
 }
 
+val grpcVersion = "1.26.0"
+
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("com.google.protobuf:protobuf-java:3.6.1")
+    implementation("io.grpc:grpc-stub:$grpcVersion")
+    implementation("io.grpc:grpc-protobuf:$grpcVersion")
+    implementation("io.grpc:grpc-netty:$grpcVersion")
+    if (JavaVersion.current().isJava9Compatible) {
+        implementation("javax.annotation:javax.annotation-api:1.3.1")
+    }
 }
+
+sourceSets {
+    main {
+        java {
+            srcDirs("build/generated/source/proto/main/grpc", "build/generated/source/proto/main/java")
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.6.1"
+    }
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.15.1"
+        }
+    }
+    generateProtoTasks {
+        ofSourceSet("main").forEach {
+            it.plugins {
+                id("grpc")
+            }
+        }
+    }
+}
+
+//task<Copy>("syncProtofiles") {
+//    from(
+//            "build/generated/source/proto/main/grpc/wtf/votebot/control_plane/lib",
+//            "build/generated/source/proto/main/java/wtf/votebot/control_plane/lib"
+//    )
+//    into("src/main/java/wtf/votebot/control_plane/lib/proto/")
+//    dependsOn("generateProto")
+//}
 
 val dokkaJar by tasks.creating(Jar::class)
 
 val sourcesJar by tasks.creating(Jar::class)
 
 tasks {
-
-//    dokka {
 //        outputFormat = "html"
 //        outputDirectory = "$buildDir/javadoc"
 //
