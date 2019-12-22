@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "wtf.votebot.control_plane.lib";
+
+package wtf.votebot.control_plane;
+
+message ConnectRequest {
+    int64 instance_id = 1;
+}
+
+message ShardConnectionInfoRequest {
+    int64 instance_id = 1;
+}
+
+message ShardConnectionInfo {
+    repeated int32 shard_ids = 1;
+    int32 shard_count = 2;
+}
+
+message Command {
+    enum Type {
+        CAN_REQUEST_SHARD_CONNECTION_DATA = 0;
+        RELEASE_SHARDS = 1;
+    }
+    Command type = 1;
+}
+
+service ControlPlaneService {
+    rpc Connect(ConnectRequest) returns (stream Command) {}
+    rpc RequestShardConnectionInfo(ShardConnectionInfoRequest) returns (ShardConnectionInfo) {}
+}
