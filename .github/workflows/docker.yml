@@ -19,7 +19,7 @@ jobs:
           DOCKER_USER: ${{ secrets.SPACE_USERNAME }}
           DOCKER_PASSWD: ${{ secrets.SPACE_PASSWORD }}
         run: |
-          docker login -u $DOCKER_USER -p DOCKER_PASSWD votebot.registry.jetbrains.space
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWD votebot.registry.jetbrains.space
           docker build -t ${IMAGE} . -f Dockerfile
           docker tag ${IMAGE} ${IMAGE}:latest
           docker tag ${IMAGE} ${IMAGE}:${GITHUB_SHA::8}
