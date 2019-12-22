@@ -148,8 +148,8 @@ publishing {
         maven {
             url = uri("https://maven.jetbrains.space/votebot/maven")
             credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("PASSWORD")
+                username = System.getenv("SPACE_USERNAME")
+                password = System.getenv("SPACE_PASSWORD")
 
             }
         }

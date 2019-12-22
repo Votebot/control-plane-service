@@ -14,9 +14,12 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
-      run: chmod +x gradlew && ./gradlew clean build
-    - name: Publish artifacts
-      run: ./gradlew lib:publish
+      run: chmod +x gradlew && ./gradlew clean build -PspaceUser=${SPACE_USERNAME} -PspacePassword=${SPACE_PASSWORD}
       env:
-        USERNAME: ${{ secrets.SPACE_USERNAME }}
-        PASSWORD: ${{ secrets.SPACE_PASSWORD }}
+        SPACE_USERNAME: ${{ secrets.SPACE_USERNAME }}
+        SPACE_PASSWORD: ${{ secrets.SPACE_PASSWORD }}
+    - name: Publish artifacts
+      run: ./gradlew lib:publish -PspaceUser=${SPACE_USERNAME} -PspacePassword=${SPACE_PASSWORD}
+      env:
+        SPACE_USERNAME: ${{ secrets.SPACE_USERNAME }}
+        SPACE_PASSWORD: ${{ secrets.SPACE_PASSWORD }}
