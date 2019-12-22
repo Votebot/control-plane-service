@@ -147,3 +147,5 @@ gradle-app.setting
 .idea/vcs.xml
 
 .idea/compiler.xml
+
+.idea/kotlinScripting.xml

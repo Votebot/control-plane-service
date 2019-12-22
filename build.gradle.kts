@@ -29,8 +29,15 @@ group = "wtf.votebot"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
+val spaceUser: String by project
+val spacePassword: String by project
+
 repositories {
     mavenCentral()
+    maven {
+        name = "votebot-space"
+        url = uri("https://maven.jetbrains.space/votebot/maven")
+    }
 }
 
 extra["springCloudVersion"] = "Hoxton.RELEASE"
@@ -38,6 +45,7 @@ extra["springCloudVersion"] = "Hoxton.RELEASE"
 val micrometerVersion = "1.3.2"
 
 dependencies {
+    implementation("wtf.votebot.control_plane:lib:0.0.1-SNAPSHOT")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
