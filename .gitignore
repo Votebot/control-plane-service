@@ -147,3 +147,6 @@ gradle-app.setting
 .idea/vcs.xml
 
 .idea/compiler.xml
+.idea/markdown-navigator.xml
+.idea/markdown-navigator-enh.xml
+.idea/discord.xml
