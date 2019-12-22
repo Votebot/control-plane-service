@@ -15,12 +15,12 @@ jobs:
       - uses: actions/checkout@v1
       - name: Build Image
         env:
-          IMAGE: docker.pkg.github.com/votebot/control-plane-service/control-plane-service
-          DOCKER_USER: ${{ secrets.USERNAME }}
-          DOCKER_PASSWD: ${{ secrets.PASSWORD }}
+          IMAGE: votebot.registry.jetbrains.space/docker/control-plane-service
+          DOCKER_USER: ${{ secrets.SPACE_USERNAME }}
+          DOCKER_PASSWD: ${{ secrets.SPACE_PASSWORD }}
         run: |
-          docker login -u $DOCKER_USER -p DOCKER_PASSWD docker.pkg.github.com
+          docker login -u $DOCKER_USER -p DOCKER_PASSWD votebot.registry.jetbrains.space
           docker build -t ${IMAGE} . -f Dockerfile
           docker tag ${IMAGE} ${IMAGE}:latest
           docker tag ${IMAGE} ${IMAGE}:${GITHUB_SHA::8}
-          docker push ${IMAGE}:latest
+          docker push ${IMAGE}
