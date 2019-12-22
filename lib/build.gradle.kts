@@ -104,8 +104,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/VoteBot/control-plane-service")
             credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+                username = System.getenv("USERNAME")
+                password = System.getenv("PASSWORD")
 
             }
         }
@@ -117,7 +117,6 @@ publishing {
             pom {
                 name.set("votebot_control_plane_service")
                 description.set("control_plane")
-
             }
         }
     }
