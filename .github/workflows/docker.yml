@@ -13,15 +13,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Login to registry
-        env:
-          DOCKER_USER: ${{ secrets.USERNAME }}
-          DOCKER_PASSWD: ${{ secrets.PASSWORD }}
-        run:  docker login -u $DOCKER_USER -p DOCKER_PASSWD docker.pkg.github.com
       - name: Build Image
         env:
           IMAGE: docker.pkg.github.com/votebot/control-plane-service/control-plane-service
+          DOCKER_USER: ${{ secrets.USERNAME }}
+          DOCKER_PASSWD: ${{ secrets.PASSWORD }}
         run: |
+          docker login -u $DOCKER_USER -p DOCKER_PASSWD docker.pkg.github.com
           docker build -t ${IMAGE} . -f Dockerfile
           docker tag ${IMAGE} ${IMAGE}:latest
           docker tag ${IMAGE} ${IMAGE}:${GITHUB_SHA::8}
